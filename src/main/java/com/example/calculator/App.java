@@ -8,10 +8,10 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -27,26 +27,17 @@ public class App extends Application {
         Background monitorFill = new Background( new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY));
         Background buttonFill = new Background( new BackgroundFill(Color.GREY, CornerRadii.EMPTY, Insets.EMPTY));
 
-        Label monitor = new Label (" " + (monitorValue.getVal()));
-        monitor.setWrapText(true);
+        Text monitor = new Text (" " + (monitorValue.getVal()));
         monitor.setFont(new Font(50));
-        monitor.setPrefSize(900, 150);
-        monitor.setMinSize(400, 120);
 
-//        Button btn = new Button();
-//        btn.setText("Say 'Hello World'");
-//        btn.setOnAction(new EventHandler<ActionEvent>() {
-//
-//            @Override
-//            public void handle(ActionEvent event) {
-//                System.out.println("Hello World!");
-//            }
-//        });
         // HBox to denote the monitor.
         HBox r1 = new HBox();
 
         r1.getChildren().add(monitor);
         r1.setBackground(monitorFill);
+        r1.setPrefSize(900, 150);
+        r1.setMinSize(400, 120);
+        monitor.wrappingWidthProperty().bind(r1.widthProperty());
 
         // numpad + operators = controller
         HBox controller = new HBox();
@@ -64,7 +55,6 @@ public class App extends Application {
         br1.getChildren().addAll(power, backspace, clear);
 
         // HBox to denote row two of the numpad.
-
         HBox br2 = new HBox();
         Button one = new Button ("1");
         Button two = new Button ("2");
@@ -130,7 +120,7 @@ public class App extends Application {
         launch(args);
     }
 
-    private static void buttonSizer(Pane parent, MonitorValue monitorValue, Label monitor){
+    private static void buttonSizer(Pane parent, MonitorValue monitorValue, Text monitor){
 
         for (Node button : parent.getChildren()) {
             if (button instanceof Button) {
@@ -175,12 +165,10 @@ public class App extends Application {
                 System.out.println("ohhhhh naurrrrr" + button.getClass());
                 break;
             }
-
         }
     }
 
     private static String evaluate(String expression) throws Exception{
-        System.out.println("hello");
         List<String> exp = new ArrayList<>(Arrays.asList(expression.split(" ")));
         double op1, op2;
         while(exp.contains("*") || exp.contains("/")){

@@ -1,12 +1,9 @@
 package com.example.calculator;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.scene.control.Label;
+import javafx.scene.text.Text;;
 
 public class MonitorValue{
     private String val;
-
     public MonitorValue(){
         this.val = "";
     }
@@ -15,12 +12,12 @@ public class MonitorValue{
         return val;
     }
 
-    public void setVal(String val, Label monitor) {
+    public void setVal(String val, Text monitor) {
         this.val = val;
         monitor.setText(val);
     }
 
-    public void popVal(Label monitor){
+    public void popVal(Text monitor){
          if (this.val.charAt(this.val.length()-1) == ' '){
              this.val = this.val.substring(0, this.val.length()-3);
          }
